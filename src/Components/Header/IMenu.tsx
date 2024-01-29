@@ -16,7 +16,7 @@ export const MenuArray: Array<IMenuElement> = [
     path: '/',
     dropdown: {
       card: {
-        image: 'https://images.pexels.com/photos/19809164/pexels-photo-19809164/free-photo-of-arte-modelo-de-moda-modelo-de-beleza-preto.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load',
+        image: 'https://images.pexels.com/photos/6646946/pexels-photo-6646946.jpeg?auto=compress&cs=tinysrgb&w=600',
         content: {
           title: 'Pastoral da Caridade',
           description: 'teste',
@@ -33,8 +33,17 @@ export const MenuArray: Array<IMenuElement> = [
           title: 'Pastoral da Caridade',
           description: 'teste',
           path: '/'
+        },
+        {
+          title: 'Pastoral da Caridade',
+          description: 'teste',
+          path: '/'
         }
       ]
     }
+  },
+  {
+    menu: 'Inicio',
+    path: '/',
   }
 ]

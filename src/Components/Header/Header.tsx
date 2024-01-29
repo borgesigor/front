@@ -38,49 +38,54 @@ export function HeaderComponent() {
 
       <Header $scrolled={scrolled} >
 
-        <Left>
-          {
-            MenuArray.map((e, i) => 
-                <Button key={i}>
-                  <a href={e.path} style={{ display: 'flex', height: '100%', gap: '0.3rem' }} >
-                    <div className="text">
-                      { e.menu }
-                    </div>
-                    <div className="text">
-                      { 
-                        e.dropdown &&  
-                        <i className="iconsax" icon-name="chevron-down"></i>
-                      }
-                    </div>
-                  </a>
-                  {
-                    e.dropdown &&
-                    <Dropdown>
+        <HeaderContent $scrolled={scrolled} >
+
+          <Left>
+            {
+              MenuArray.map((e, i) => 
+                  <Button key={i}>
+                    <a href={e.path} style={{ display: 'flex', height: '100%', gap: '0.3rem' }} >
+                      <div className="text">
+                        { e.menu }
+                      </div>
+                      <div className="text">
+                        { 
+                          e.dropdown &&  
+                          <i className="iconsax" icon-name="chevron-down"></i>
+                        }
+                      </div>
+                    </a>
+                    {
+                      e.dropdown &&
+                      <Dropdown className="dropdown">
                         <DropdownComponent content={e.dropdown} />
-                    </Dropdown>
-                  }
-                </Button>
-            )
+                      </Dropdown>
+                    }
+                  </Button>
+              )
 
-          }
-        </Left>
+            }
+          </Left>
 
-        <Middle $scrolled={scrolled} >
-          <ReactSVG src={logo}/>
-        </Middle>
+          <Middle $scrolled={scrolled} >
+            <ReactSVG src={logo}/>
+          </Middle>
 
-        <Right >
-          <Button style={{ cursor: 'pointer' }} >
-            <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="instagram"></i>
-          </Button>
-          <Button style={{ cursor: 'pointer' }} >
-            <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="play-square"></i>
-          </Button>
-        </Right>
+          <Right >
+            <Button style={{ cursor: 'pointer' }} >
+              <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="instagram"></i>
+            </Button>
+            <Button style={{ cursor: 'pointer' }} >
+              <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="play-square"></i>
+            </Button>
+          </Right>
 
           <Button>
             <i style={{ fontSize: '2rem' }} className="iconsax" icon-name="hamburger-menu"></i>
           </Button>
+
+        </HeaderContent>
+
 
       </Header>
 
@@ -95,13 +100,17 @@ const TransitionTime = '0.2s'
 const Header = styled.div<{ $scrolled: boolean }>`
   position: fixed;
   z-index: 99;
-  background: ${props => props.$scrolled ? props.theme.background : 'transparent'};
   width: 100%;
+  background: ${props => props.$scrolled ? props.theme.background : 'transparent'};
+`
+
+const HeaderContent = styled.div<{ $scrolled: boolean }>`
+  width: 1300px;
+  margin: 0 auto;
   display: flex;
   height: 4rem;
   color: ${props => props.$scrolled ? props.theme.primaryColor : 'white'};
   transition: ${TransitionTime};
-  padding: 0rem 2rem;
   font-family: ${props => props.theme.secondaryFont};
 `
 
@@ -146,7 +155,6 @@ const Button = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 
   .text{
     display: flex;
@@ -163,6 +171,8 @@ const Button = styled.div`
 
 const Dropdown = styled.div`
   position: absolute;
+  width: 100%;
+  background: white;
   left: 0;
   top: 4rem;
 `
