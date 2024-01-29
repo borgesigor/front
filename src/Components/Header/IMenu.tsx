@@ -19,7 +19,7 @@ export const MenuArray: Array<IMenuElement> = [
         image: 'https://images.pexels.com/photos/6646946/pexels-photo-6646946.jpeg?auto=compress&cs=tinysrgb&w=600',
         content: {
           title: 'Pastoral da Caridade',
-          description: 'teste',
+          description: 'Amor que transforma',
           path: '/'
         }
       },
@@ -41,9 +41,5 @@ export const MenuArray: Array<IMenuElement> = [
         }
       ]
     }
-  },
-  {
-    menu: 'Inicio',
-    path: '/',
   }
 ]

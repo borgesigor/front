@@ -38,58 +38,53 @@ export function HeaderComponent() {
 
       <Header $scrolled={scrolled} >
 
-        <HeaderContent $scrolled={scrolled} >
+        <Left>
+          {
+            MenuArray.map((e, i) => 
+                <Button key={i}>
+                  <a href={e.path} style={{ display: 'flex', height: '100%', gap: '0.3rem' }} >
+                    <div className="text">
+                      { e.menu }
+                    </div>
+                    <div className="text">
+                      { 
+                        e.dropdown &&  
+                        <i className="iconsax" icon-name="chevron-down"></i>
+                      }
+                    </div>
+                  </a>
+                  {
+                    e.dropdown &&
+                    <Dropdown className="dropdown">
+                      <DropdownComponent content={e.dropdown} />
+                    </Dropdown>
+                  }
+                </Button>
+            )
 
-          <Left>
-            {
-              MenuArray.map((e, i) => 
-                  <Button key={i}>
-                    <a href={e.path} style={{ display: 'flex', height: '100%', gap: '0.3rem' }} >
-                      <div className="text">
-                        { e.menu }
-                      </div>
-                      <div className="text">
-                        { 
-                          e.dropdown &&  
-                          <i className="iconsax" icon-name="chevron-down"></i>
-                        }
-                      </div>
-                    </a>
-                    {
-                      e.dropdown &&
-                      <Dropdown className="dropdown">
-                        <DropdownComponent content={e.dropdown} />
-                      </Dropdown>
-                    }
-                  </Button>
-              )
+          }
+        </Left>
 
-            }
-          </Left>
+        <Middle $scrolled={scrolled} >
+          <ReactSVG src={logo}/>
+        </Middle>
 
-          <Middle $scrolled={scrolled} >
-            <ReactSVG src={logo}/>
-          </Middle>
-
-          <Right >
-            <Button style={{ cursor: 'pointer' }} >
-              <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="instagram"></i>
-            </Button>
-            <Button style={{ cursor: 'pointer' }} >
-              <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="play-square"></i>
-            </Button>
-          </Right>
-
-          <Button>
-            <i style={{ fontSize: '2rem' }} className="iconsax" icon-name="hamburger-menu"></i>
+        <Right >
+          <Button style={{ cursor: 'pointer' }} >
+            <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="instagram"></i>
           </Button>
+          <Button style={{ cursor: 'pointer' }} >
+            <i style={{ fontSize: '1.5rem' }} className="iconsax" icon-name="play-square"></i>
+          </Button>
+        </Right>
 
-        </HeaderContent>
-
+        <Button className="mobile">
+          <i style={{ fontSize: '2rem' }} className="iconsax" icon-name="hamburger-menu"></i>
+        </Button>
 
       </Header>
 
-      <MobileMenuComponent items={MenuArray}  />
+      {/* <MobileMenuComponent items={MenuArray}  /> */}
 
     </>
   );
@@ -100,18 +95,27 @@ const TransitionTime = '0.2s'
 const Header = styled.div<{ $scrolled: boolean }>`
   position: fixed;
   z-index: 99;
-  width: 100%;
   background: ${props => props.$scrolled ? props.theme.background : 'transparent'};
-`
-
-const HeaderContent = styled.div<{ $scrolled: boolean }>`
-  width: 1300px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   height: 4rem;
   color: ${props => props.$scrolled ? props.theme.primaryColor : 'white'};
   transition: ${TransitionTime};
+  padding: 0rem 4rem;
+  box-sizing: border-box;
   font-family: ${props => props.theme.secondaryFont};
+
+  @media screen and (max-width: 1100px) {
+    padding: 0rem 2rem;
+  }
+
+
+  @media screen and (min-width: 1101px) {
+
+    .mobile{
+      display: none;
+    }
+  }
 `
 
 const Left = styled.div`
@@ -121,6 +125,10 @@ const Left = styled.div`
   align-items: center;
   height: 100%;
   gap: 3rem;
+
+  @media screen and (max-width: 1100px) {
+    display: none;
+  }
 `
 
 const Right = styled.div`
@@ -130,6 +138,10 @@ const Right = styled.div`
   align-items: center;
   height: '100%';
   gap: 1rem;
+
+  @media screen and (max-width: 1100px) {
+    display: none;
+  }
 ` 
 
 const Middle = styled.div<{ $scrolled: boolean }>`
@@ -137,6 +149,10 @@ const Middle = styled.div<{ $scrolled: boolean }>`
   justify-content: center;
   align-items: center;
   flex: 1;
+
+  @media screen and (max-width: 1100px) {
+    justify-content: left;
+  }
 
   svg{
     width: 3.2rem;
@@ -149,12 +165,12 @@ const Button = styled.div`
   height: 100%;
   background: transparent;
   border: none;
-  opacity: 0.6;
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   .text{
     display: flex;
@@ -162,17 +178,33 @@ const Button = styled.div`
     height: 100%;
     cursor: pointer;
   }
+
+  a{
+    opacity: 0.6;
+  }
   
   &:hover {
-    opacity: 1;
+    a{
+      opacity: 1;
+    }
+
+    .dropdown{
+      visibility: visible;
+      opacity: 1;
+      margin-top: 0;
+    }
   }
   
 `
 
 const Dropdown = styled.div`
   position: absolute;
-  width: 100%;
-  background: white;
   left: 0;
   top: 4rem;
+  overflow: visible;
+  width: fit-content;
+  visibility: hidden;
+  opacity: 0;
+  transition: .2s ease-in-out;
+  margin-top: -0.2rem;
 `

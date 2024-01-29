@@ -28,16 +28,18 @@ const Main = styled.div`
   padding: 0 2em;
   max-width: 1300px;
   box-sizing: border-box;
-  margin: '0 auto';
+  margin: 0 auto;
+  font-family: ${props => props.theme.primaryFont};
+  color: ${props => props.theme.primaryColor};
 `
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <HeaderComponent/>
-      <Main>
-        <IndexPage/>
-      </Main>
+        <Main>
+          <IndexPage/>
+        </Main>
     </ThemeProvider>
   )
 }

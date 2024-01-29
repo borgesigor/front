@@ -65,7 +65,7 @@ export function DropdownComponent(dropdownItems: IDropdown) {
 const Dropdown = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 1rem 4rem 2rem 1rem;
+  padding: 1rem 2rem 2rem 1rem;
   gap: 2.5rem;
   font-size: 1rem;
   font-weight: 400;
@@ -73,19 +73,13 @@ const Dropdown = styled.div`
   color: ${props => props.theme.primaryColor};
   font-family: ${props => props.theme.primaryFont};
 
-  width: fit-content;
   position: relative;
 
   border: 1px solid ${props => props.theme.borderColor};
   border-bottom: 2px solid ${props => props.theme.borderColor};
 
   @media screen and (max-width: 1100px) {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
+    display: none;
   }
 `
 
@@ -120,6 +114,7 @@ const Item = styled.div`
   cursor: pointer;
   height: 100%;
   font-weight: 400;
+  width: 14rem;
 
   gap: 0.5rem;
 
@@ -136,7 +131,7 @@ const Item = styled.div`
 
   .image{
     aspect-ratio: 1/1;
-    max-width: 14rem;
+    width: 14rem;
     overflow: hidden;
 
     img{
