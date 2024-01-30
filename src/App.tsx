@@ -1,17 +1,6 @@
 import { HeaderComponent } from "./Components/Header/Header"
 import { IndexPage } from "./Pages/Index/Index"
-import * as stylex from '@stylexjs/stylex'
 import styled, { ThemeProvider } from "styled-components";
-
-
-const main = stylex.create({
-  default: {
-    padding: '0 2em',
-    maxWidth: '1300px',
-    boxSizing: 'border-box',
-    margin: '0 auto'
-  }
-})
 
 const theme = {
   background: '#FFFFFF',

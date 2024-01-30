@@ -1,7 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import * as stylex from '@stylexjs/stylex'
-import { theme } from "../../Themes/theme.stylex";
 import { ButtonComponent } from "../Button/Button";
 
 interface Props{
@@ -85,14 +84,3 @@ const SeeMore = styled.div`
   overflow: hidden;
   position: relative;
 `
-
-const buttonSeeMore = stylex.create({
-  default: {
-    position: 'relative',
-    background: 'white',
-    cursor: 'pointer',
-    border: `1px solid ${theme.primaryColor}`,
-    borderRadius: '5rem',
-    padding: '0.9rem 1rem'
-  }
-})

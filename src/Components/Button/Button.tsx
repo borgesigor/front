@@ -1,6 +1,4 @@
 import { ReactNode } from 'react';
-import * as stylex from '@stylexjs/stylex'
-import { theme } from '../../Themes/theme.stylex'
 import styled from 'styled-components';
 
 interface Props{

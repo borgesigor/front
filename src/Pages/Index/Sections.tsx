@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { TitleComponent } from "../../Components/Title/Title";
 import { CardComponent } from "../../Components/Card/Card";
 import { SeeMoreComponent } from "../../Components/SeeMore/SeeMore";
-import { isPc } from "../../Utils/GetDeviceType";
 import { ButtonComponent } from "../../Components/Button/Button";
 
 export function SectionOneComponent() {

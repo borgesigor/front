@@ -2,14 +2,9 @@ import styled from "styled-components";
 import * as stylex from '@stylexjs/stylex' 
 import { theme } from "../../Themes/theme.stylex";
 import { IMenuElement } from "./IMenu";
-import { IDropdownItems } from "./IDropdown";
 
 interface Props{
   items: Array<IMenuElement>
-}
-
-interface DropdownProps{
-  items: IDropdownItems
 }
 
 export function MobileMenuComponent({ items }: Props) {
