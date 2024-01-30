@@ -1,30 +1,27 @@
-import { MediaPlayerClass } from "dashjs";
+// import { MediaPlayerClass } from "dashjs";
 
-interface ComponentsProps {
-  videoController: React.RefObject<HTMLDivElement>;
-  playPauseBtn: React.RefObject<HTMLButtonElement>;
-  bitrateListBtn: React.RefObject<HTMLButtonElement>;
-  captionBtn: React.RefObject<HTMLButtonElement>;
-  trackSwitchBtn: React.RefObject<HTMLButtonElement>;
-  seekbar: React.RefObject<HTMLInputElement>;
-  seekbarPlay: React.RefObject<HTMLDivElement>;
-  seekbarBuffer: React.RefObject<HTMLDivElement>;
-  muteBtn: React.RefObject<HTMLButtonElement>;
-  volumebar: React.RefObject<HTMLInputElement>;
-  fullscreenBtn: React.RefObject<HTMLButtonElement>;
-  timeDisplay: React.RefObject<HTMLDivElement>;
-  durationDisplay: React.RefObject<HTMLDivElement>;
-  thumbnailContainer: React.RefObject<HTMLDivElement>;
-  thumbnailElem: React.RefObject<HTMLImageElement>;
-  thumbnailTimeLabel: React.RefObject<HTMLDivElement>;
-}
+// // playerRef.current.getDVRWindowSize() // tamanho do vídeo em dvr em segundos
+// // playerRef.current.seek() // ir pra onde colocar dentro
+// // playerRef.current.getCurrentLiveLatency() // calcula a latencia, otimo para sincronizar seekbar no edge
+// // playerRef.current.time() // tempo atual do vídeo
+// // playerRef.current.isDynamic() // ve se ta ao vivo
+// // playerRef.current.seekToOriginalLive() // ir pro live edge
+// // playerRef.current.duration() // duração caso não seja dynamic
 
-class ControlBar{
-  player: MediaPlayerClass
+// interface ComponentsProps {
+//   ProgressBar: React.RefObject<HTMLInputElement>;
+// }
 
-  constructor(player: MediaPlayerClass, componentsProps: ComponentsProps){
-    this.player = player
-  }
+// export class ControlBarFunctions{
+//   player: MediaPlayerClass
+//   components: ComponentsProps
 
+//   constructor(player: MediaPlayerClass, components: ComponentsProps){
+//     this.player = player
+//     this.components = components
+//   }
 
-}
+//   setProgressBarValue(value: number){
+    
+//   }
+// }

@@ -1,77 +1,137 @@
 import dashjs from "dashjs";
 import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
-const url = "https://rdmedia.bbc.co.uk/testcard/simulcast/manifests/avc-full.mpd"
+const url = 
+  "https://rdmedia.bbc.co.uk/testcard/simulcast/manifests/avc-full.mpd"
+  // "https://dash.akamaized.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd"
 
 export function VideoPlayerComponent() {
+  const [durationText, setDurationText] = useState('');
+  const [actualTimeText, setActualTimeText] = useState('');
+
   const videoRef = useRef(null);
-  const playerRef: any = useRef(null)
+  const player: any = useRef(null);
+  const subtitle = useRef(null);
   const progressBar: any = useRef(null);
 
-  const div = useRef(null);
+  let isSeeking = false;
 
-  const [estouEditando, setEstouEditando] = useState(Boolean);
-
-  const editandoTrue = () => {
-    setEstouEditando(true)
-    console.log('era pra ser true: '+estouEditando)
-  };
-
-  const editandoFalse = () => {
-    setEstouEditando(false)
-    console.log('era pra ser false: '+estouEditando)
+  function streamingDuration(){
+    return player.current.getDVRWindowSize() - player.current.getTargetLiveDelay()
   }
-  
-  useEffect(() => {
-    if (videoRef.current) {
 
+  function convertToTimeCode(time: number){
+    return player.current.convertToTimeCode(time)
+  }
+
+  function updateProgressBar(){
+    if(isSeeking === false){
+      progressBar.current.value = player.current.time()
+    }
+
+    setActualTimeText(convertToTimeCode(streamingDuration() - player.current.time()))
+  }
+
+  function updateDuration(){
+    if(player.current.isDynamic()){
+      progressBar.current.max = streamingDuration()
+    }else{
+      progressBar.current.max = player.current.duration()
+    }
+
+    setDurationText(convertToTimeCode(streamingDuration()))
+  }
+
+  function seeking(){
+    isSeeking = true;
+    player.current.pause()
+  }
+
+  function seekingEnd(){
+
+    if(!(player.current && progressBar.current)){
+      throw new Error('controles não criados.')
+    }
+
+    player.current.seek(parseFloat(progressBar.current.value))
+    player.current.play()
+
+    isSeeking = false;
+
+  }
+
+  useEffect(() => {
+
+    if (videoRef.current) {
       const video = videoRef.current;
 
-      playerRef.current = dashjs.MediaPlayer().create();
+      player.current = dashjs.MediaPlayer().create();
 
-      playerRef.current.initialize(video, url, true);
-      playerRef.current.attachView(video);
-      playerRef.current.attachTTMLRenderingDiv(div.current);
+      player.current.initialize(video, url, true);
+      player.current.attachView(video);
+      player.current.attachTTMLRenderingDiv(subtitle.current);
 
-      // playerRef.current.getDVRWindowSize() // tamanho do vídeo em dvr em segundos
-      // playerRef.current.seek() // ir pra onde colocar dentro da func em segundos
-      // playerRef.current.isDynamic() // ve se ta ao vivo
       
-      // progressBar.current.onClick
-      
-      setInterval(()=> {
-        if(estouEditando){
-          progressBar.current.max = 900 - playerRef.current.getCurrentLiveLatency()
-          progressBar.current.value = playerRef.current.time()
-          console.log('.')
-        }
-      }, 1000)
-
-      // setInterval(()=>console.log(playerRef.current.seek(1)), 1000)
-
+      setInterval(()=>{
+        updateDuration()
+        updateProgressBar()
+      }, 100)
 
     }
     
     return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy();
-        playerRef.current = null;
+      if (player.current) {
+        player.current.destroy();
+        player.current = null;
       }
     };
-  }, []);
+
+  }, [player.current]);
 
   return (
     <>
       <div style={{ position: 'relative' }}>
-        <div ref={div}></div>
+        <div ref={subtitle}></div>
         <video ref={videoRef} autoPlay style={{ width: "100%" }} controls></video>
-        <input 
-          ref={progressBar}
-          onMouseDown={() => editandoTrue()} 
-          onMouseUp={() => editandoFalse()} 
-          style={{ width: '100%' }} 
-          type="range" />
+        <ControlBarContainer>
+          <ControlBarUpper>
+            <input 
+              ref={progressBar}  
+              type="range"
+              onMouseDown={seeking}
+              onMouseUp={seekingEnd}
+              style={{ width: '100%' }}
+              step={0.1}
+            />
+          </ControlBarUpper>
+          <ControlBarDown>
+            <Infos>
+              <span>{actualTimeText}</span>
+              <span>/</span>
+              <span>{durationText}</span>
+            </Infos>
+          </ControlBarDown>
+        </ControlBarContainer>
       </div>
     </>
   );
 }
+
+const Infos = styled.div`
+
+`
+
+const ControlBarContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const ControlBarUpper = styled.div`
+
+`
+
+const ControlBarDown = styled.div`
+
+`
