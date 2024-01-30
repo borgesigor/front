@@ -1,6 +1,7 @@
 import { BannerComponent } from "../../Components/Banner/Banner"
 import { MainComponent } from "../../Components/Main/Main";
-import SectionOne from "./Sections/One";
+import { VideoPlayerComponent } from "../../Components/VideoPlayer/VideoPlayer";
+import { SectionOneComponent, SectionTwoComponent } from "./Sections";
 
 export function IndexPage() {
   return ( 
@@ -8,7 +9,9 @@ export function IndexPage() {
       <MainComponent>
 
         <BannerComponent/>
-        <SectionOne/>
+        <SectionOneComponent/>
+        <SectionTwoComponent/>
+        <VideoPlayerComponent/>
         
       </MainComponent>
 

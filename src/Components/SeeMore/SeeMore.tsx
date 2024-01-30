@@ -2,10 +2,12 @@ import { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import * as stylex from '@stylexjs/stylex'
 import { theme } from "../../Themes/theme.stylex";
+import { ButtonComponent } from "../Button/Button";
 
 interface Props{
   children: ReactNode,
-  active?: boolean
+  active?: boolean,
+  size?: number
 }
 
 export function SeeMoreComponent(props: Props) {
@@ -28,8 +30,8 @@ export function SeeMoreComponent(props: Props) {
 
   return (
     <>
-      <SeeMoreContainer>
-        <SeeMore {...stylex.props(hide && hideCont.container)} >
+      <SeeMoreContainer {...stylex.props(hide && hideCont.container)} $size={props.size} >
+        <SeeMore >
           {props.children}
           {
             active &&
@@ -38,7 +40,10 @@ export function SeeMoreComponent(props: Props) {
         </SeeMore>
         {
           active &&
-            <button {...stylex.props(buttonSeeMore.default)} onClick={() => toggleSeeMore()} >{!hide ? 'Abrir parágrafo' : 'Fechar parágrafo'}</button>
+            // <button {...stylex.props(buttonSeeMore.default)} onClick={() => toggleSeeMore()} >{!hide ? 'Abrir parágrafo' : 'Fechar parágrafo'}</button>
+            <ButtonComponent onClick={() => toggleSeeMore()} >
+              { hide ? 'Fechar Parágrafo': 'Abrir Parágrafo' }
+            </ButtonComponent>
         }
       </SeeMoreContainer>
     </>
@@ -54,13 +59,14 @@ const hideCont = stylex.create({
   }
 })
 
-const SeeMoreContainer = styled.div`
+const SeeMoreContainer = styled.div<{ $size?: number }>`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: end;
+  justify-content: start;
   gap: 1rem;
+  height: ${props => props.$size ? props.$size : '150'}px;
 `
 
 const SeeMoreOverlay = styled.div`
@@ -76,7 +82,6 @@ const SeeMoreOverlay = styled.div`
 `
 
 const SeeMore = styled.div`
-  height: 100px;
   overflow: hidden;
   position: relative;
 `
@@ -88,6 +93,6 @@ const buttonSeeMore = stylex.create({
     cursor: 'pointer',
     border: `1px solid ${theme.primaryColor}`,
     borderRadius: '5rem',
-    padding: '0.2rem 0.7rem'
+    padding: '0.9rem 1rem'
   }
 })

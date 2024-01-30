@@ -24,7 +24,7 @@ export function TitleComponent(props: Props) {
   return ( 
     <>
       <div {...stylex.props(titleContainer.default)} >
-        <span {...stylex.props(titleContainer.title)} >{title}</span>
+        <h2 {...stylex.props(titleContainer.title)} >{title}</h2>
         { seeMore &&
             <span {...stylex.props(titleContainer.seeMore)} >Ver mais</span>
         }

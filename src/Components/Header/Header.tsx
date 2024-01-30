@@ -1,11 +1,8 @@
-import * as stylex from "@stylexjs/stylex";
 import logo from '../../assets/logo.svg'
 import { useEffect, useState } from 'react';
-import { theme } from "../../Themes/theme.stylex";
 import { ReactSVG } from 'react-svg';
 import { DropdownComponent } from "./Dropdown";
 import styled from "styled-components";
-import { MobileMenuComponent } from "./MobileMenu";
 import { MenuArray } from "./IMenu";
 
 export function HeaderComponent() {
@@ -30,8 +27,6 @@ export function HeaderComponent() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  console.log(MenuArray)
 
   return ( 
     <>
@@ -104,6 +99,8 @@ const Header = styled.div<{ $scrolled: boolean }>`
   padding: 0rem 4rem;
   box-sizing: border-box;
   font-family: ${props => props.theme.secondaryFont};
+  border-bottom: 1px solid;
+  border-color: ${props => props.$scrolled ? props.theme.borderColor : 'transparent'};
 
   @media screen and (max-width: 1100px) {
     padding: 0rem 2rem;
@@ -205,6 +202,6 @@ const Dropdown = styled.div`
   width: fit-content;
   visibility: hidden;
   opacity: 0;
-  transition: .2s ease-in-out;
+  transition: .1s ease-in-out;
   margin-top: -0.2rem;
 `

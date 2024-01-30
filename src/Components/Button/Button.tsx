@@ -1,34 +1,35 @@
 import { ReactNode } from 'react';
 import * as stylex from '@stylexjs/stylex'
 import { theme } from '../../Themes/theme.stylex'
+import styled from 'styled-components';
 
 interface Props{
-  children: ReactNode
+  children: ReactNode,
+  onClick?: any,
+  inverted?: boolean,
+  responsive?: boolean
 }
 
-export function ButtonComponent({ children }: Props) {
+export function ButtonComponent(props: Props) {
   return ( 
     <>
-      <button {...stylex.props(button.default)} >{children}</button>
+      <Button $inverted={props.inverted} $responsive={props.responsive} onClick={props.onClick}>{props.children}</Button>
     </>
   );
 }
 
-const button = stylex.create({
-  default: {
-    fontWeight: 400,
-    fontSize: '0.9rem',
-    padding: '0.5rem 1rem',
-    background: theme.background,
-    color: theme.primaryColor,
-    border: `1px solid ${theme.borderHardColor}`,
-    borderBottom: `2px solid ${theme.borderHardColor}`,
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width: 'fit-content',
-    lineHeight: '170%'
-  },
-  responsive: {
-    width: '100%' 
-  }
-})
+const Button = styled.button<{ $inverted?: boolean, $responsive?: boolean }>`
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background: ${props => props.$inverted ? props.theme.primaryColor : props.theme.background};
+  color: ${props => props.$inverted ? props.theme.background : props.theme.primaryColor};
+  border: 1px solid;
+  border-bottom: 2px solid;
+  border-color: ${props => props.theme.primaryColor};
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  line-height: 170%;
+  width: ${props => props.$responsive ? '100%' : 'fit-content'};
+`
